@@ -4,7 +4,22 @@ on:
       - main
 name: release-please
 jobs:
+  release-please:
+  runs-on: ubuntu-latest
+  outputs:
+    release_created: ${{ steps.release.outputs.release_created }}
+    major: ${{ steps.release.outputs.major }}
+    minor: ${{ steps.release.outputs.minor }}
+    patch: ${{ steps.release.outputs.patch }}
+  steps:
+    - uses: google-github-actions/release-please-action@v3
+      id: release
+      with:
+        release-type: simple
+        extra-files: pom.xml
+
   build:
+    needs: [release-please]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,17 +33,6 @@ jobs:
         with:
           path: target/*.jar
           name: spring-boot-application.jar
-
-  release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-    steps:
-      - uses: google-github-actions/release-please-action@v3
-        id: release
-        with:
-          release-type: simple
-          extra-files: pom.xml
 
   upload-artifact-to-release:
     needs: [build, release-please]
