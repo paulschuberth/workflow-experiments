@@ -1,5 +1,12 @@
 # Changelog
 
+### [2.1.1](https://github.com/paulschuberth/release-please-experiments/compare/v2.1.0...v2.1.1) (2022-04-06)
+
+
+### Bug Fixes
+
+* upload artifact to release ([a71a963](https://github.com/paulschuberth/release-please-experiments/commit/a71a9637d854db40c1ed211df645726b44ed609a))
+
 ## [2.1.0](https://github.com/paulschuberth/release-please-experiments/compare/v2.0.0...v2.1.0) (2022-04-06)
 
 
