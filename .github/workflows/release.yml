@@ -11,10 +11,12 @@ jobs:
       major: ${{ steps.release.outputs.major }}
       minor: ${{ steps.release.outputs.minor }}
       patch: ${{ steps.release.outputs.patch }}
+      upload_url: ${{ steps.release.outputs.upload_url }}
     steps:
       - uses: google-github-actions/release-please-action@v3
         id: release
         with:
+          draft: true
           release-type: simple
           extra-files: pom.xml
 
@@ -47,10 +49,11 @@ jobs:
         with:
           name: spring-boot-application.jar
       
-      - name: Upload artifact
-        uses: Roang-zero1/github-upload-release-artifacts-action@master
-        with:
-          args: |
-            spring-boot-application.jar
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload artifact to release
+        run: |
+          curl \
+            -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}
+            -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            --data-binary "@/path/to/filename" \
+            ${{ needs.release-please.outputs.upload_url }}
