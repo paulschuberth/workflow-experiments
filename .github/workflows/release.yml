@@ -6,8 +6,9 @@ name: release-please
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    id: release
     steps:
       - uses: google-github-actions/release-please-action@v3
         with:
           release-type: simple
-          package-name: release-please-action
+          extra-files: pom.xml
