@@ -16,8 +16,6 @@ jobs:
         id: release
         with:
           release-type: simple
-          draft: true
-          command: release
           extra-files: pom.xml
 
   build:
@@ -34,10 +32,7 @@ jobs:
           distribution: temurin
           java-version: 11
 
-      - name: Set version
-        run: mvn versions:set -DnewVersion="$MAJOR.$MINOR.$PATCH"
-      
-      - run: mvn install -ntp
+      - run: mvn install -ntp -DskipTests=true
       - uses: actions/upload-artifact@v3
         with:
           path: target/*.jar
