@@ -51,9 +51,12 @@ jobs:
       
       - name: Upload artifact to release
         run: |
+          uri=${{ needs.release-please.outputs.upload_url }}
+
+
           curl \
             -u $GITHUB_ACTOR:${{ secrets.GITHUB_TOKEN }}
             -X POST \
             -H "Accept: application/vnd.github.v3+json" \
             --data-binary "@/path/to/filename" \
-            ${{ needs.release-please.outputs.upload_url }}
+            ${uri/{.+}/?name=app.jar&label=testlabel}
