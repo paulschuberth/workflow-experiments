@@ -17,6 +17,7 @@ jobs:
         with:
           release-type: simple
           draft: true
+          command: release
           extra-files: pom.xml
 
   build:
