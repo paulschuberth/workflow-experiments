@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.1.0](https://github.com/paulschuberth/release-please-experiments/compare/v2.0.0...v2.1.0) (2022-04-06)
+
+
+### Features
+
+* build and upload artifact to release ([ce59417](https://github.com/paulschuberth/release-please-experiments/commit/ce59417ee521980c12b037073a963831601b4ebc))
+* publish release as draft ([1860eb9](https://github.com/paulschuberth/release-please-experiments/commit/1860eb9da88da96aafcfc7a3ff2e842d43c24b1b))
+
+
+### Bug Fixes
+
+* **ci:** fix indentation ([1caa887](https://github.com/paulschuberth/release-please-experiments/commit/1caa88787ed7f45546b2a60384e4844a648b835a))
+* determine version before build ([3838c30](https://github.com/paulschuberth/release-please-experiments/commit/3838c3090df5f57e6ccaddcf08aa93c2859a524a))
+* determine version before build ([2873a51](https://github.com/paulschuberth/release-please-experiments/commit/2873a51ba2cd42e54ba8a6aaa6201421b04ff9d5))
+* don't set version with mvn command ([d7d443a](https://github.com/paulschuberth/release-please-experiments/commit/d7d443ae8f75cd805a861a7b1061cd09c4c47f81))
+* specify java distribution ([eba51bf](https://github.com/paulschuberth/release-please-experiments/commit/eba51bf11ac8a1cdba2d794ac737b8fa1982cea6))
+
 ## [2.0.0](https://github.com/paulschuberth/release-please-experiments/compare/v1.0.1...v2.0.0) (2022-04-06)
 
 
