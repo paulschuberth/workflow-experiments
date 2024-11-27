@@ -39,4 +39,4 @@ jobs:
       - name: Check tag compliance
         run: |
           echo "Is compliant?"
-          echo "${{ (inputs.environment == 'int' || inputs.environment == 'qs' || inputs.environment == 'prod') && !steps.tag-check.outputs.has_matches }}"
+          echo "${{ !(inputs.environment == 'int' || inputs.environment == 'qs' || inputs.environment == 'prod') && !steps.tag-check.outputs.has_matches }}"
