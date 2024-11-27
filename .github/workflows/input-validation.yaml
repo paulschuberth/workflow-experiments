@@ -1,3 +1,5 @@
+name: SemVer input validation
+
 on:
   workflow_dispatch:
     inputs:
@@ -38,5 +40,5 @@ jobs:
       # On stages dev, and testing these restrictions do not apply.
       - name: Check tag compliance
         run: |
-          echo "Is compliant?"
-          echo "${{ !(inputs.environment == 'int' || inputs.environment == 'qs' || inputs.environment == 'prod') && !steps.tag-check.outputs.has_matches }}"
+          echo "Is ${{ inputs.tag }} compliant?"
+          echo "${{ (inputs.environment == 'dev' || inputs.environment == 'testing') || steps.tag-check.outputs.has_matches }}"
