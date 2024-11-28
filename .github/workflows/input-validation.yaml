@@ -11,23 +11,33 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        environment: ['dev', 'testing', 'int', 'qs', 'prod']
-        tag: ['latest', 'v1.4.0']
+        environment: [ 'dev', 'testing', 'int', 'qs', 'prod' ]
+        tag: [ 'latest', 'v1.4.0' ]
     steps:
       - name: Check input tag
         id: tag-check
         shell: python
+        # language=python
         run: |
-          from builtins import print
+          import os
           import re
-          tag="${{ matrix.tag }}"
+          
+          tag = "${{ matrix.tag }}"
           # Basic regex to match SemVer tags starting with 'v' followed by major, minor,
           # and patch versions, with an optional arbitrary qualifier at the end.
           semverPattern = "v(\\d+\\.?){3}(-.+)?"
+          
+          output_file = os.getenv('GITHUB_OUTPUT')
+          
+          
+          def output(value):
+              with open(output_file, "a") as output:
+                  output.write(f"isSemanticVersion={value}")
+          
           if re.match(semverPattern, tag):
-              print(f'::set-output name=isSemanticVersion::true')
+              output('true')
           else:
-              print(f'::set-output name=isSemanticVersion::false')
+              output('false')
 
       # On stages int, qs, and prod we require the tag to be a semantic version
       # On stages dev, and testing these restrictions do not apply.
