@@ -17,7 +17,6 @@ jobs:
       - name: Check input tag
         id: tag-check
         run: |
-          from builtins import print
           import re
           tag="${{ matrix.tag }}"
           # Basic regex to match SemVer tags starting with 'v' followed by major, minor,
