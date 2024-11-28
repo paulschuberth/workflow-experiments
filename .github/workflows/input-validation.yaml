@@ -26,6 +26,6 @@ jobs:
       # On stages int, qs, and prod we require the tag to be a semantic version
       # On stages dev, and testing these restrictions do not apply.
       - name: Check tag compliance
-        if: ${{ (matrix.environment == 'dev' || matrix.environment == 'testing') || steps.tag-check.outputs.has_matches == 'true' }}
+        if: ${{ (matrix.environment == 'dev' || matrix.environment == 'testing') || steps.tag-check.outputs.has_matches }}
         run: |
           echo "::warning title=Invalid deployment tag::In the future a deployment into ${{ matrix.environment }} using ${{ matrix.tag }} will be rejected."
