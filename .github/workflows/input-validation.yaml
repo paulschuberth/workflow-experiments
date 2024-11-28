@@ -2,28 +2,8 @@ name: SemVer input validation
 
 on:
   workflow_dispatch:
-    inputs:
-      environment:
-        description: 'Select the environment'
-        required: true
-        type: choice
-        options:
-          - "dev"
-          - "testing"
-          - "int"
-          - "qs"
-          - "prod"
-      tag:
-        description: 'image tag for deployment'
-        required: false
-        type: string
-        default: 'latest'
-
 jobs:
   pre-checks:
-    environment:
-      name: ${{ inputs.environment }}
-      url: ${{ vars.app_host }}
     permissions:
       actions: read
       contents: read
@@ -46,6 +26,6 @@ jobs:
       # On stages int, qs, and prod we require the tag to be a semantic version
       # On stages dev, and testing these restrictions do not apply.
       - name: Check tag compliance
-        if: ${{ !steps.tag-check.outputs.has_matches && (matrix.environment != 'dev' && matrix.environment != 'testing') }}
+        if: ${{ (matrix.environment == 'dev' || matrix.environment == 'testing') || steps.tag-check.outputs.has_matches }}
         run: |
           echo "::warning title=Invalid deployment tag::In the future a deployment into ${{ matrix.environment }} using ${{ matrix.tag }} will be rejected."
