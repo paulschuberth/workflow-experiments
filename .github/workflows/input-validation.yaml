@@ -44,4 +44,4 @@ jobs:
       - name: Check tag compliance
         if: ${{ (inputs.environment == 'dev' || inputs.environment == 'testing') || steps.tag-check.outputs.has_matches }}
         run: |
-          echo "::warning title=Invalid deployment tag::In the future the workflows will change to only allow semver tags to be deployed to int, qs, and prod"
+          echo "::warning title=Invalid deployment tag::In the future the workflows will change to only allow semver tags to be deployed to int, qs, and prod.\nA deployment using ${{ inputs.tag }} will be rejected."
