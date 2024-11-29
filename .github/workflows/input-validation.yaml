@@ -23,25 +23,13 @@ jobs:
           import re
           
           tag = "${{ matrix.tag }}"
+          environment = "${{ matrix.environment }}"
           # Basic regex to match SemVer tags starting with 'v' followed by major, minor,
           # and patch versions, with an optional arbitrary qualifier at the end.
-          semverPattern = "v(\\d+\\.?){3}(-.+)?"
-          
-          output_file = os.getenv('GITHUB_OUTPUT')
-          
-          
-          def output(value):
-              with open(output_file, "a") as output:
-                  output.write(f"isSemanticVersion={value}")
-          
-          if re.match(semverPattern, tag):
-              output('true')
-          else:
-              output('false')
+          semver_pattern = "v(\\d+\\.?){3}(-.+)?"
+          is_semantic_version = re.match(semver_pattern, tag)
 
-      # On stages int, qs, and prod we require the tag to be a semantic version
-      # On stages dev, and testing these restrictions do not apply.
-      - name: Check tag compliance
-        if: ${{ !((matrix.environment == 'dev' || matrix.environment == 'testing') || steps.tag-check.outputs.isSemanticVersion == 'true') }}
-        run: |
-          echo "::warning title=Invalid deployment tag::In the future a deployment into ${{ matrix.environment }} using ${{ matrix.tag }} will be rejected."
+          if not ((environment == 'dev' or environment == 'testing') or is_semantic_version):
+              output_file = os.getenv('GITHUB_OUTPUT')
+              with open(output_file, "a") as output:
+                  output.write( f"::warning title=Invalid deployment tag::In the future a deployment into {environment} using {tag} will be rejected.")
