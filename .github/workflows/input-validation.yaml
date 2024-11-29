@@ -30,7 +30,4 @@ jobs:
           is_semantic_version = re.match(semver_pattern, tag)
 
           if not ((environment == 'dev' or environment == 'testing') or is_semantic_version):
-              output_file = os.getenv('GITHUB_OUTPUT')
-              with open(output_file, "a") as output:
-                  output.write(
-                      f'::warning title=Invalid deployment tag::In the future a deployment into {environment} using {tag} will be rejected.')
+              print(f'::warning title=Invalid deployment tag::In the future a deployment into {environment} using {tag} will be rejected.')
