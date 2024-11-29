@@ -31,8 +31,6 @@ jobs:
 
           if not ((environment == 'dev' or environment == 'testing') or is_semantic_version):
               output_file = os.getenv('GITHUB_OUTPUT')
-              exit(1)
-              print("hey")
-              print(output_file)
               with open(output_file, "a") as output:
+                  exit(1)
                   output.write( f"::warning title=Invalid deployment tag::In the future a deployment into {environment} using {tag} will be rejected.")
