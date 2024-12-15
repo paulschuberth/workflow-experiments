@@ -11,7 +11,7 @@
 	<groupId>de.pschuberth</groupId>
 	<artifactId>experiment</artifactId>
 <!-- x-release-please-start-version -->
-	<version>3.0.0</version>
+	<version>4.0.0</version>
 <!-- x-release-please-end -->
 	<name>experiment</name>
 	<description>Just some applications</description>
