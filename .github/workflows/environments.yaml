@@ -10,10 +10,9 @@ jobs:
 #    strategy:
 #      matrix:
 #        stage: [ dev, int, qs, prod ]
+    environment: dev
     steps:
       - name: Say Hello
         run: |
-          echo "Secret: ${{ secrets['GREETING-dev'] }}"
-          echo "Secret: ${{ secrets['GREETING-int'] }}"
-          echo "Secret: ${{ secrets['GREETING-qs'] }}"
-          echo "Secret: ${{ secrets['GREETING-prod'] }}"
+          echo "Secret: ${{ secrets['GREETING'] }}"
+          echo "Secret: ${{ secrets.GREETING }}"
