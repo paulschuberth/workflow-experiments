@@ -10,6 +10,7 @@ jobs:
 #    strategy:
 #      matrix:
 #        stage: [ dev, int, qs, prod ]
+    environment: dev
     steps:
       - name: Say Hello
         run: |
