@@ -7,12 +7,13 @@ on:
 jobs:
   greet:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        stage: [ dev, int, qs, prod]
+#    strategy:
+#      matrix:
+#        stage: [ dev, int, qs, prod ]
     steps:
       - name: Say Hello
         run: |
-          KEY="GREETING-${{ matrix.stage }}"
-          echo "Key: $KEY"
-          echo "Secret: ${{ secrets[KEY] }}"
+          echo "Secret: ${{ secrets[GREETING-dev] }}"
+          echo "Secret: ${{ secrets[GREETING-int] }}"
+          echo "Secret: ${{ secrets[GREETING-qs] }}"
+          echo "Secret: ${{ secrets[GREETING-prod] }}"
