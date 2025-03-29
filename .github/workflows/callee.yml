@@ -1,4 +1,4 @@
-name: Caller
+name: Callee
 on:
   workflow_call:
     inputs:
