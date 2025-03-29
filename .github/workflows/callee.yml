@@ -1,0 +1,33 @@
+name: Caller
+on:
+  workflow_call:
+    inputs:
+      stage:
+        type: string
+        description: The stage
+        required: true
+  workflow_dispatch:
+    inputs:
+      stage:
+        type: string
+        description: The stage
+        required: true
+
+jobs:
+  called:
+    if: github.event_name == 'workflow_call'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Called!"
+
+  called-for-prod:
+    if: github.event_name == 'workflow_call' && inputs.stage == 'prod'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Called for prod!"
+
+  dispatched:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Dispatched!"

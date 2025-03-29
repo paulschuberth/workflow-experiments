@@ -1,0 +1,9 @@
+name: Caller
+on:
+  workflow_dispatch:
+
+jobs:
+  calling:
+    uses: ./.github/workflows/callee.yml
+    with:
+      stage: test
