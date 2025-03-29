@@ -1,9 +1,14 @@
 name: Caller
 on:
   workflow_dispatch:
+    inputs:
+      stage:
+        type: string
+        required: false
+        default: dev
 
 jobs:
   calling:
     uses: ./.github/workflows/callee.yml
     with:
-      stage: test
+      stage: ${{ inputs.stage }}
