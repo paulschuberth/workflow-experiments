@@ -1,13 +1,33 @@
 on:
   deployment:
+  workflow_dispatch:
+    inputs:
+      new-tag:
+        required: false
+        default: 'v2.3.4'
+        type: string
+
 
 jobs:
   job-a:
     runs-on: ubuntu-latest
     steps:
-      - name: Adjust ref
-        shell: bash
+      - if: github.event_name == 'deployment'
         run: |
           REF="$GITHUB_REF"
           TAG_NAME=${REF#"refs/tags/"}
-          echo $TAG_NAME
+          echo "name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+        id: tag
+
+      - if: github.event_name == 'workflow_dispatch'
+        run: |
+          echo "name=${{ inputs.new-tag }}" >> "$GITHUB_OUTPUT"
+        id: tag
+    outputs:
+      new-tag-name: ${{ steps.tag.outputs.name }}
+
+  job-b:
+    runs-on: ubuntu-latest
+    needs: job-a
+    steps:
+      - run: echo ${{ needs.job-a.outputs.new-tag-name }}
