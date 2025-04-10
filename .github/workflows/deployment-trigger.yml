@@ -1,0 +1,13 @@
+on:
+  deployment:
+
+jobs:
+  job-a:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Adjust ref
+        shell: bash
+        run: |
+          REF="$GITHUB_REF"
+          TAG_NAME=${REF#"refs/tags/"}
+          echo $TAG_NAME
