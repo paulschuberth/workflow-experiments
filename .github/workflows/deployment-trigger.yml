@@ -12,18 +12,18 @@ jobs:
   job-a:
     runs-on: ubuntu-latest
     steps:
-      run: |
-        if [ "${{ github.event_name}}" == "workflow_dispatch" ]
-        then
-          echo "name=${{ inputs.new-tag }}" >> "$GITHUB_OUTPUT"
-        fi
-        if [ "${{ github.event_name}}" == "deployment" ]
-        then
-          REF="$GITHUB_REF"
-          TAG_NAME=${REF#"refs/tags/"}
-          echo "name=$TAG_NAME" >> "$GITHUB_OUTPUT"
-        fi
-      id: tag
+      - run: |
+          if [ "${{ github.event_name}}" == "workflow_dispatch" ]
+          then
+            echo "name=${{ inputs.new-tag }}" >> "$GITHUB_OUTPUT"
+          fi
+          if [ "${{ github.event_name}}" == "deployment" ]
+          then
+            REF="$GITHUB_REF"
+            TAG_NAME=${REF#"refs/tags/"}
+            echo "name=$TAG_NAME" >> "$GITHUB_OUTPUT"
+          fi
+        id: tag
     outputs:
       new-tag-name: ${{ steps.tag.outputs.name }}
 
