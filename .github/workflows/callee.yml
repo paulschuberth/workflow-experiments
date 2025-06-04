@@ -11,7 +11,8 @@ on:
       stage:
         type: string
         description: The stage
-        required: true
+        required: false
+        default: ''
 
 jobs:
   debug:
