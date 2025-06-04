@@ -1,0 +1,11 @@
+name: 'Indirect'
+
+on:
+    workflow_run:
+        workflows: ['Callee']
+
+jobs:
+    success:
+        runs-on: 'ubuntu-latest'
+        steps:
+            - run: echo 'Called by workflow_run'
