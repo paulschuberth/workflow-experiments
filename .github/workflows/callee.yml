@@ -5,7 +5,8 @@ on:
       stage:
         type: string
         description: The stage
-        required: true
+        required: false
+        default: ''
   workflow_dispatch:
     inputs:
       stage:
