@@ -10,7 +10,7 @@ jobs:
       - name: Create a fun JSON
         id: json
         run: |
-          echo "strategy=[{'name': 'Job A', 'data': 'foo'}, {'name': 'Job B', 'data': 'bar'}]" >> "$GITHUB_OUTPUT"
+          echo "strategy={'name': ['Job A', 'Job B'], 'data': ['foo', 'bar']}" >> "$GITHUB_OUTPUT"
 
   execute:
     runs-on: ubuntu-latest
