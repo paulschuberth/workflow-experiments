@@ -17,7 +17,7 @@ jobs:
     needs: prepare
     strategy:
       matrix: ${{ fromJSON(needs.prepare.outputs.strategy) }}
-    name: ${{ matrix.name }}
+    name: ${{ matrix.name }} / ${{ matrix.data }}
     steps:
       - name: Use matrix data
         run: echo "${{ matrix.data }}"
