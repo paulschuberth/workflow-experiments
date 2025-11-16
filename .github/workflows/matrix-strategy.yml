@@ -5,19 +5,35 @@ jobs:
   prepare:
     runs-on: ubuntu-latest
     outputs:
-      strategy: ${{ steps.json.outputs.strategy }}
+      strategy-default: ${{ steps.json-one.outputs.strategy }}
+      strategy-include: ${{ steps.json-two.outputs.strategy }}
     steps:
       - name: Create a fun JSON
-        id: json
+        id: json-one
         run: |
           echo "strategy={'name': ['Job A', 'Job B'], 'data': ['foo', 'bar']}" >> "$GITHUB_OUTPUT"
 
-  execute:
+      - name: Create another funky JSON
+        id: json-two
+        run: |
+          echo "strategy={'include': [{'name': 'Job C', 'data': 'Hello'}, {'name': 'Job D', 'data': 'World'}] }" >> "$GITHUB_OUTPUT"
+
+  execute-default-matrix:
     runs-on: ubuntu-latest
     needs: prepare
     strategy:
-      matrix: ${{ fromJSON(needs.prepare.outputs.strategy) }}
+      matrix: ${{ fromJSON(needs.prepare.outputs.strategy-default) }}
     name: ${{ matrix.name }} / ${{ matrix.data }}
     steps:
-      - name: Use matrix data
+      - name: Use matrix data ${{ matrix.data }}
+        run: echo "${{ matrix.data }}"
+
+  execute-include-matrix:
+    runs-on: ubuntu-latest
+    needs: prepare
+    name: ${{ matrix.name }} / ${{ matrix.data }}
+    strategy:
+      matrix: ${{ fromJSON(needs.prepare.outputs.strategy-include) }}
+    steps:
+      - name: Use matrix data ${{ matrix.data }}
         run: echo "${{ matrix.data }}"
