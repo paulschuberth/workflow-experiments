@@ -1,0 +1,23 @@
+name: matrix-strategy.yml
+on:
+  workflow_dispatch:
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      strategy: ${{ steps.json.outputs.strategy }}
+    steps:
+      - name: Create a fun JSON
+        id: json
+        run: |
+          echo "strategy=[{'name': 'Job A', 'data': 'foo'}, {'name': 'Job B', 'data': 'bar'}]" >> "$GITHUB_OUTPUT"
+
+  execute:
+    runs-on: ubuntu-latest
+    needs: prepare
+    strategy:
+      matrix: ${{ fromJSON(needs.prepare.outputs.strategy) }}
+    name: ${{ matrix.name }}
+    steps:
+      - name: Use matrix data
+        run: echo "${{ matrix.data }}"
