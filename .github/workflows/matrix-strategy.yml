@@ -1,4 +1,4 @@
-name: matrix-strategy.yml
+name: 'matrix-strategy.yml'
 on:
   workflow_dispatch:
 jobs:
