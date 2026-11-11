@@ -37,6 +37,7 @@ jobs:
 
   job-c:
     runs-on: ubuntu-latest
+    if: ${{ !failure() && !cancelled() }}
     needs: job-a
     steps:
       - run: echo "success"
